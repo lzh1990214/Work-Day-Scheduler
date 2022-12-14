@@ -24,31 +24,13 @@ $(function () {
     var timeId = this.parentNode.id;
     // get the textarea element through the children index of the parent element
     var descriptionText = this.parentNode.children[1];
-
     console.log(descriptionText.value);
     console.log(timeId);
-
     // store key (id of each time-block) and value (text entered in the textarea) in local storage
     localStorage.setItem(timeId, JSON.stringify(descriptionText.value.trim()));
 
   })
 
-  function addTimeBlock () {
-  // add time-block element to contain time (am and pm), text area and save button 
-  var clockTimeEl = $("#container").append('<div class="row timer-block past">12 am</div>');
-
-  console.log (clockTimeEl);
-  
-  // add a div element to show am and pm time of a day
-  $(".timer-block").append('<div>pm</div>');
-  // add textarea element
-  $(".timer-block").append('<textarea class="col-8 col-md-10 description" rows="3"></textarea>');
-  // add button
-  $(".timer-block").append('<button class="btn saveBtn col-2 col-md-1" aria-label="save"></button>');
-  $(".btn").append('<i class="fas fa-save" aria-hidden="true"></i>');
-}
-
-addTimeBlock()
 
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -57,7 +39,46 @@ addTimeBlock()
   // current hour in 24-hour time?
   //
 
+// get today's weekday, date and year by Day.js API
+var today = dayjs();
+// show today's weekday, date, and year on the <p> element with id "currentDay"
+$("#currentDay").text(today.format("dddd, MMMM D, YYYY"));
 
+// get the current time in hour format
+var timeNow = dayjs().hour();
+console.log (timeNow);
+
+
+
+// use each() method in JQuery to loop over each time-block element to extract the hour text
+// in id and change class based on the time-hour number comparison
+$(".time-block").each(function () { 
+  // extract the hour number from id with substring() method to remove the first 5 characters "hour-"
+  var idHour = $(this).attr("id").substring(5);
+  console.log(idHour);
+
+  // The "past", "present", and "future" classes need to be removed if they exist from previous page loading
+  $(this).removeClass("past present future");
+  
+  // compare the current time in hour format with the extacted hour number and add "future", "past",
+  // and "present" classes accordingly.  
+  if (idHour > timeNow) {
+    $(this).addClass("future");
+  } else if (idHour < timeNow){
+    $(this).addClass("past");
+  } else {
+    $(this).addClass("present");
+  };
+});
+
+
+
+
+
+
+// var idText = "hour-16";
+// var idHour = idText.substring(5);
+// console.log(idHour);
 
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
