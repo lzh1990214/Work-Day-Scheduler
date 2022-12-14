@@ -19,10 +19,14 @@ https://lzh1990214.github.io/Work-Day-Scheduler/
 
 ## Screenshots
 
-Home page displaying current time and allowing user to enter event in each time block:
+Home page displaying current time and past, present and future time blocks with colors:
 
-![Main page with a red 'start" button.](./Assets/S1.png)
+![Main page](./Assets/S1.png)
 
-Each event text is saved in local storage as value with associated hour as key:
+Home page allowing user to enter event in each time block and save the input with buttons:
 
-![Main page with a red 'start" button.](./Assets/S2.png)
+![Main page with user input](./Assets/S2.png)
+
+Each event text can be saved in local storage as value with associated hour as key:
+
+![local storage.](./Assets/S3.png)
